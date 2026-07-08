@@ -6,18 +6,28 @@ RecipeChef AI is a full-stack AI mini-project that lets users register, log in, 
 
 - User registration and login
 - Protected dashboard
-- Create, read, and delete recipes
-- AI recipe generation
-- AI shopping list generation
-- Loading states and friendly error messages
+- Full CRUD operations (Create, Read, Update, Delete recipes)
+- AI recipe generation (from raw ingredients input)
+- AI shopping list generation (from custom generated recipes)
+- Loading overlays with dynamic descriptions
+- User-isolated recipe storage (owner filtering)
 - Back4App database integration
 
 ## Tech Stack
 
-- React + Vite
-- Back4App / Parse REST API
-- Trussed.ai AI API
-- Netlify deployment
+- **Frontend**: React + Vite (Vanilla CSS design system)
+- **Database/Auth**: Back4App / Parse REST API
+- **AI Engine**: Trussed.ai Chat Completions (GPT-powered)
+- **Hosting**: Netlify deployment
+
+## Project Documentation
+
+Detailed architecture, API schemas, cost analysis, and test suites can be found here:
+- [API Documentation](docs/API_DOCUMENTATION.md) — Endpoint URLs, requests/responses.
+- [Architecture Flow](docs/ARCHITECTURE.md) — High-level system interaction diagram.
+- [Database Schema Design](docs/DATABASE_DESIGN.md) — ERD diagrams and field types.
+- [Cost Analysis & Estimates](docs/COST_ANALYSIS.md) — Token projections and daily limits.
+- [Test Cases Suite](docs/TEST_CASES.md) — Auth, CRUD, AI features, and error case validation.
 
 ## Environment Variables
 
