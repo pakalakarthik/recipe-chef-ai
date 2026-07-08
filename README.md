@@ -54,4 +54,4 @@ https://generate-your-own-recipe.netlify.app
 
 ## Demo Video
 
-TODO
+https://www.loom.com/share/2b3f16222c2c43a88e2236d65e8406ca
