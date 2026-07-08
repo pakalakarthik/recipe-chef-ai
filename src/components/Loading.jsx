@@ -1,9 +1,8 @@
-import React from 'react';
-
-const Loading = () => {
+const Loading = ({ message = "Loading" }) => {
   return (
     <div className="loading-container">
-      <p>Loading...</p>
+      <div className="loader-ring"></div>
+      <span className="loader-text">{message}...</span>
     </div>
   );
 };
