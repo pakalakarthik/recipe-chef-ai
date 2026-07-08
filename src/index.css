@@ -1,0 +1,37 @@
+.wide {
+  width: 100%;
+  max-width: 700px;
+}
+
+.card {
+  margin-bottom: 24px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.recipe-card {
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.ai-box {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f3f4f6;
+  border-radius: 12px;
+}
+
+pre {
+  white-space: pre-wrap;
+  font-family: Arial, Helvetica, sans-serif;
+}
