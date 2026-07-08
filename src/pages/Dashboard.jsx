@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { createRecipe, deleteRecipe, getRecipes } from "../services/recipeService";
+import { createRecipe, deleteRecipe, getRecipes, updateRecipe } from "../services/recipeService";
 import { generateRecipe, generateShoppingList } from "../services/openai";
 import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
@@ -15,6 +15,7 @@ function Dashboard() {
   const [recipes, setRecipes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
+  const [editingRecipeId, setEditingRecipeId] = useState(null);
   
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
@@ -57,6 +58,28 @@ function Dashboard() {
 
 
 
+  function handleEdit(recipe) {
+    setError("");
+    setEditingRecipeId(recipe.objectId);
+    setTitle(recipe.title);
+    setIngredients(recipe.ingredients);
+    setInstructions(recipe.instructions);
+    
+    // Scroll smoothly to form
+    const formElement = document.getElementById("add-recipe-form");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  function handleCancelEdit() {
+    setError("");
+    setEditingRecipeId(null);
+    setTitle("");
+    setIngredients("");
+    setInstructions("");
+  }
+
   async function handleSave(e) {
     e.preventDefault();
     setError("");
@@ -67,14 +90,25 @@ function Dashboard() {
     }
 
     try {
-      setLoadingMsg("Saving recipe to cloud");
       setLoading(true);
-      await createRecipe({
-        title,
-        ingredients,
-        instructions,
-        owner: user.objectId,
-      });
+      if (editingRecipeId) {
+        setLoadingMsg("Updating recipe in cloud");
+        await updateRecipe(editingRecipeId, {
+          title,
+          ingredients,
+          instructions,
+          owner: user.objectId,
+        });
+        setEditingRecipeId(null);
+      } else {
+        setLoadingMsg("Saving recipe to cloud");
+        await createRecipe({
+          title,
+          ingredients,
+          instructions,
+          owner: user.objectId,
+        });
+      }
 
       setTitle("");
       setIngredients("");
@@ -341,8 +375,8 @@ function Dashboard() {
           {/* Add Recipe Manual Editor Form */}
           <section className="card" id="add-recipe-form">
             <div className="card-header">
-              <h3>Create Recipe</h3>
-              <p>Add a new dish manually or customize an imported AI recipe.</p>
+              <h3>{editingRecipeId ? "Edit Recipe" : "Create Recipe"}</h3>
+              <p>{editingRecipeId ? "Modify details of your saved recipe below." : "Add a new dish manually or customize an imported AI recipe."}</p>
             </div>
 
             <form onSubmit={handleSave} className="form">
@@ -384,14 +418,21 @@ function Dashboard() {
                 />
               </div>
 
-              <button type="submit" disabled={loading} style={{ alignSelf: "flex-start" }}>
-                <svg style={{ width: "18px", height: "18px" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                  <polyline points="17 21 17 13 7 13 7 21" />
-                  <polyline points="7 3 7 8 15 8" />
-                </svg>
-                Save Recipe
-              </button>
+              <div style={{ display: "flex", gap: "0.75rem", alignSelf: "flex-start" }}>
+                <button type="submit" disabled={loading}>
+                  <svg style={{ width: "18px", height: "18px" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                    <polyline points="17 21 17 13 7 13 7 21" />
+                    <polyline points="7 3 7 8 15 8" />
+                  </svg>
+                  {editingRecipeId ? "Update Recipe" : "Save Recipe"}
+                </button>
+                {editingRecipeId && (
+                  <button type="button" className="btn btn-secondary" onClick={handleCancelEdit} disabled={loading}>
+                    Cancel
+                  </button>
+                )}
+              </div>
             </form>
           </section>
         </div>
@@ -435,7 +476,7 @@ function Dashboard() {
 
             <div className="recipe-grid">
               {filteredRecipes.map((recipe) => (
-                <RecipeCard key={recipe.objectId} recipe={recipe} onDelete={handleDelete} />
+                <RecipeCard key={recipe.objectId} recipe={recipe} onDelete={handleDelete} onEdit={handleEdit} />
               ))}
             </div>
           </section>

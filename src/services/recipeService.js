@@ -18,3 +18,10 @@ export async function deleteRecipe(id) {
     method: "DELETE",
   });
 }
+
+export async function updateRecipe(id, recipe) {
+  return parseRequest(`/classes/Recipe/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(recipe),
+  });
+}
