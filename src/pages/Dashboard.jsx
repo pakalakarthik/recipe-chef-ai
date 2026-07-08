@@ -42,7 +42,7 @@ function Dashboard() {
     try {
       setLoadingMsg("Fetching your recipes");
       setLoading(true);
-      const data = await getRecipes();
+      const data = await getRecipes(user?.objectId);
       setRecipes(data.results || []);
     } catch (err) {
       setError(err.message || "Failed to load recipes.");
@@ -54,6 +54,7 @@ function Dashboard() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     loadRecipes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

@@ -7,8 +7,10 @@ export async function createRecipe(recipe) {
   });
 }
 
-export async function getRecipes() {
-  return parseRequest("/classes/Recipe?order=-createdAt", {
+export async function getRecipes(userId) {
+  if (!userId) return { results: [] };
+  const query = { owner: userId };
+  return parseRequest(`/classes/Recipe?where=${encodeURIComponent(JSON.stringify(query))}&order=-createdAt`, {
     method: "GET",
   });
 }
