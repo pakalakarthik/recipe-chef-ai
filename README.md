@@ -1,16 +1,56 @@
-# React + Vite
+# RecipeChef AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RecipeChef AI is a full-stack AI mini-project that lets users register, log in, save recipes, and generate recipes and shopping lists using AI.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- User registration and login
+- Protected dashboard
+- Create, read, and delete recipes
+- AI recipe generation
+- AI shopping list generation
+- Loading states and friendly error messages
+- Back4App database integration
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + Vite
+- Back4App / Parse REST API
+- Trussed.ai AI API
+- Netlify deployment
 
-## Expanding the ESLint configuration
+## Environment Variables
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Create `frontend/.env`:
+
+```env
+VITE_PARSE_APP_ID=
+VITE_PARSE_JS_KEY=
+VITE_PARSE_SERVER_URL=
+VITE_OPENAI_API_KEY=
+```
+
+## Run Locally
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## Usage
+
+1. Register a new account.
+2. Log in.
+3. Add a recipe manually.
+4. Generate a recipe using ingredients.
+5. Generate a shopping list from the AI recipe.
+6. Save or delete recipes.
+
+## Live URL
+
+TODO
+
+## Demo Video
+
+TODO
