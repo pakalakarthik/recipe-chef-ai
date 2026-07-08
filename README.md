@@ -47,9 +47,10 @@ npm run dev
 5. Generate a shopping list from the AI recipe.
 6. Save or delete recipes.
 
+
 ## Live URL
 
-TODO
+https://generate-your-own-recipe.netlify.app
 
 ## Demo Video
 
