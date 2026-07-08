@@ -1,11 +1,33 @@
 # Architecture
 
-RecipeChef AI uses a React frontend with Back4App and Trussed.ai.
+RecipeChef AI uses a modern, client-side React frontend communicating with Back4App (for database/authentication) and Trussed.ai (for AI completions).
 
-## Architecture Flow
+## System Flow Diagram
 
-User → React Frontend → Back4App REST API  
-User → React Frontend → Trussed.ai AI API
+```mermaid
+graph TD
+    User([User]) <--> |Interacts with UI| FE[React Frontend]
+    
+    subgraph Frontend [Vite React Client]
+        FE <--> AC[Auth Context]
+        FE <--> DG[Dashboard Grid View]
+        DG <--> AI[AI Utilities]
+    end
+    
+    subgraph Back4App [Backend-as-a-Service]
+        AC <--> |Session & Credential Check| USR[(User Class)]
+        DG <--> |Owner-Filtered Recipe CRUD| REC[(Recipe Class)]
+    end
+
+    subgraph AI Service [FAU Trussed.ai]
+        AI <--> |Recipe Prompting & Lists| GPT[gpt-5.4 completions]
+    end
+
+    style FE fill:#1e293b,stroke:#ff7a30,stroke-width:2px,color:#fff
+    style Back4App fill:#0f172a,stroke:#3b82f6,stroke-width:1px,color:#fff
+    style AI Service fill:#0f172a,stroke:#10b981,stroke-width:1px,color:#fff
+```
+
 
 ## Frontend
 

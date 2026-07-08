@@ -75,6 +75,31 @@ GET /classes/Recipe?order=-createdAt
 DELETE /classes/Recipe/{objectId}
 ```
 
+### Update Recipe
+
+```http
+PUT /classes/Recipe/{objectId}
+```
+
+Request:
+
+```json
+{
+  "title": "Updated Chicken Rice",
+  "ingredients": "chicken, rice, onion, garlic",
+  "instructions": "Cook rice, cook chicken, mix together with garlic."
+}
+```
+
+Response:
+
+```json
+{
+  "updatedAt": "2026-07-08T20:30:00.000Z"
+}
+```
+
+
 ## AI Features
 
 ### Generate Recipe

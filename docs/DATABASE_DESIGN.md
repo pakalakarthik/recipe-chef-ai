@@ -36,6 +36,26 @@ Fields:
 
 ## ERD
 
-User 1 ──── many Recipe
+```mermaid
+erDiagram
+    USER {
+        string objectId PK
+        string username
+        string email
+        string password
+        string sessionToken
+    }
+    RECIPE {
+        string objectId PK
+        string title
+        string ingredients
+        string instructions
+        string owner FK
+        date createdAt
+        date updatedAt
+    }
+
+    USER ||--o{ RECIPE : "creates"
+```
 
 One user can create many recipes. Each recipe belongs to one user.
